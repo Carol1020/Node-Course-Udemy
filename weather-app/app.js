@@ -16,6 +16,14 @@ request({ url: url, json: true }, (error, response) => {
   );
 });
 
-// Goal: Print a small forecast to the user
-// 1. Print: "It is currently 9 degrees out. It feels like 5 degrees out."
-// 2. Test your work!
+const geocodingURL =
+  "https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiY2Fyb2xsaXUxMDIwIiwiYSI6ImNrYzF0Z202NDB3dm0yd29lZjJuM2YwemYifQ.hUUReXyGMR8OF4QxfUh7kQ&limit=1";
+
+request({ url: geocodingURL, json: true }, (error, response) => {
+  const lat = response.body.features[0].center[0];
+  const long = response.body.features[0].center[1];
+  console.log(lat, long);
+});
+
+// Geocoding
+// Address -> Lat / Long -> weather
