@@ -4,28 +4,26 @@ const forecast = require("./utils/forecast");
 // Geocoding
 // Address -> Lat / Long -> weather
 
-// Goal: Accept location via command line argument
-//
-// 1. Access the command line argument wiithout yargs
-// 2. Use the string value as the input for geocodes
-// 3. Only geocode if a location was provided
-// 4. Test your work with a couple locations
+// Goal: Use both destructuring and property shorthand in weather app
+// 1. Use destructuring in app.js, forecast.js and geocode.js
+// 2. Use property shorthand in forecast.js and geocode.js
+// 3. Test your work  and ensure app still works
 
 const address = process.argv[2];
 
 if (!address) {
   console.log("Please provide an address.");
 } else {
-  geocode(address, (error, data) => {
+  geocode(address, (error, { latitude, longtitude, location } = {}) => {
     if (error) {
       return console.log(error);
     }
-    forecast(data.latitude, data.longtitude, (error, forecastData) => {
+    forecast(latitude, longtitude, (error, forecastData) => {
       if (error) {
         return console.log(error);
       }
 
-      console.log(data.location);
+      console.log(location);
       console.log(forecastData);
     });
   });
