@@ -12,9 +12,7 @@ const printList = (head)=>{
   if (head!=null) {
     console.log(head.v);
     printList(head.next);
-  }
-
-  
+  }  
 }
 
 printList(head);
@@ -31,9 +29,7 @@ function findNextOdd (head) {
 
 const removeEven = (head) => {
   let prevHead = findNextOdd(head);
-
   head.next = findNextOdd(head.next);
-
   if (head.v % 2 === 0) {
     prevHead.next = head.next
     removeEven(head.next);
