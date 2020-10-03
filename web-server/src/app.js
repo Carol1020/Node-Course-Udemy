@@ -43,6 +43,18 @@ app.get("/weather", (req, res) => {
   res.send();
 });
 
+app.get("/products", (req, res) => {
+  if (!req.query.search) {
+    res.send({
+      error: "You must prodive a search game",
+    });
+  }
+  console.log(req.query.search);
+  res.send({
+    product: [],
+  });
+});
+
 app.get("/help/*", (req, res) => {
   res.render("404", {
     title: "404",
