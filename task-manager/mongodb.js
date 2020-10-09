@@ -9,10 +9,6 @@ const { MongoClient, ObjectID } = require("mongodb");
 const connectionURL = "mongodb://127.0.0.1:27017";
 const databaseName = "task-manager";
 
-const id = new ObjectID();
-console.log(id);
-console.log(id.getTimestamp());
-
 MongoClient.connect(connectionURL, { useNewParser: true }, (error, client) => {
   if (error) {
     return console.log("Unable to connect to database!");
@@ -20,59 +16,25 @@ MongoClient.connect(connectionURL, { useNewParser: true }, (error, client) => {
 
   const db = client.db(databaseName);
 
-  db.collection("users").insertOne(
-    {
-      _id: id,
-      name: "Vikram",
-      age: 29,
-    },
-    (error, result) => {
+  db.collection("users").findOne(
+    { _id: new ObjectID("5f7fd5fb1f1e8c053187dd11") },
+    (error, user) => {
       if (error) {
-        return console.log("Unable to insert user");
+        return console.log("Unable to fetch");
       }
-      console.log(result.ops);
+      console.log(user);
     }
   );
 
-  // db.collection("users").insertMany(
-  //   [
-  //     {
-  //       name: "Jen",
-  //       age: 28,
-  //     },
-  //     {
-  //       name: "Gunther",
-  //       age: 27,
-  //     },
-  //   ],
-  //   (error, result) => {
-  //     if (error) {
-  //       return console.log("Unable to insert documents!");
-  //     }
-  //     console.log(result.ops);
-  //   }
-  // );
+  db.collection("users")
+    .find({ age: 26 })
+    .toArray((error, users) => {
+      console.log(users);
+    });
 
-  // db.collection("documents").insertMany(
-  //   [
-  //     {
-  //       description: "This is document 1.",
-  //       completed: true,
-  //     },
-  //     {
-  //       description: "This is document 2.",
-  //       completed: tru,
-  //     },
-  //     {
-  //       description: "This is document 3.",
-  //       completed: false,
-  //     },
-  //   ],
-  //   (error, result) => {
-  //     if (error) {
-  //       return console.log("Invalid document");
-  //     }
-  //     console.log(result.ops);
-  //   }
-  // );
+  db.collection("users")
+    .find({ age: 26 })
+    .count((error, count) => {
+      console.log(count);
+    });
 });
