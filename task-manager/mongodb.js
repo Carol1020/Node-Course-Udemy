@@ -53,19 +53,37 @@ MongoClient.connect(connectionURL, { useNewParser: true }, (error, client) => {
   //     console.log(result);
   //   });
 
-  db.collection("users")
-    .updateOne(
+  // db.collection("users")
+  //   .updateOne(
+  //     {
+  //       _id: new ObjectID("5f7fcb54d15921f9062c3db2"),
+  //     },
+  //     {
+  //       $inc: {
+  //         age: 1,
+  //       },
+  //     }
+  //   )
+  //   .then((result) => {
+  //     console.log(result);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+
+  db.collection("documents")
+    .updateMany(
       {
-        _id: new ObjectID("5f7fcb54d15921f9062c3db2"),
+        completed: false,
       },
       {
-        $inc: {
-          age: 1,
+        $set: {
+          completed: true,
         },
       }
     )
     .then((result) => {
-      console.log(result);
+      console.log(result.modifiedCount);
     })
     .catch((error) => {
       console.log(error);
