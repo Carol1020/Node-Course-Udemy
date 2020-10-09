@@ -38,18 +38,36 @@ MongoClient.connect(connectionURL, { useNewParser: true }, (error, client) => {
   //     console.log(count);
   //   });
 
-  db.collection("documents").findOne(
-    {
-      _id: new ObjectID("5f7fd193479db8ffd1735c19"),
-    },
-    (error, result) => {
-      console.log(result);
-    }
-  );
+  // db.collection("documents").findOne(
+  //   {
+  //     _id: new ObjectID("5f7fd193479db8ffd1735c19"),
+  //   },
+  //   (error, result) => {
+  //     console.log(result);
+  //   }
+  // );
 
-  db.collection("documents")
-    .find({ completed: true })
-    .toArray((error, result) => {
+  // db.collection("documents")
+  //   .find({ completed: true })
+  //   .toArray((error, result) => {
+  //     console.log(result);
+  //   });
+
+  db.collection("users")
+    .updateOne(
+      {
+        _id: new ObjectID("5f7fcb54d15921f9062c3db2"),
+      },
+      {
+        $inc: {
+          age: 1,
+        },
+      }
+    )
+    .then((result) => {
       console.log(result);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
