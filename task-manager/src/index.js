@@ -57,7 +57,7 @@ app.post("/tasks", async (req, res) => {
 app.get("/tasks", async (req, res) => {
   try {
     const tasks = await Task.find({});
-    res.send(users);
+    res.send(tasks);
   } catch (e) {
     res.status(500).send();
   }
@@ -67,7 +67,7 @@ app.get("/tasks/:id", async (req, res) => {
   const _id = req.params.id;
 
   try {
-    const user = await Task.findById(_id);
+    const task = await Task.findById(_id);
 
     if (!task) {
       return res.status(404).send();
